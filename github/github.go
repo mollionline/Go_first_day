@@ -46,6 +46,8 @@ func githubInfo(login string) (string, int, error) {
 	if resp.StatusCode != http.StatusOK {
 		return "", 0, fmt.Errorf("%#v - %s", url, resp.Status)
 	}
+	defer resp.Body.Close()
+
 	fmt.Printf("Content-Type: %s\n", resp.Header.Get("Content-Type"))
 	var r struct {
 		Name         string
